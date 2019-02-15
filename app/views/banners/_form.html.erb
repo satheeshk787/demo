@@ -1,10 +1,15 @@
+<%= tinymce_assets %>
+
+
 <%= form_for(@banner) do |f| %>
 
 
   <div class="field">
     <%= f.label :scroll %><br>
-    <%= f.text_field :scroll %>
+    <%= f.text_area :scroll, :class => "tinymce", :rows => 5, :cols => 120 %>
   </div>
+
+
   <div class="field">
     <%= f.label :url %><br>
     <%= f.text_field :url %>
@@ -25,3 +30,5 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= tinymce %>

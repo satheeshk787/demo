@@ -16,5 +16,6 @@
 //= require_tree .
 //= require nested_form_fields
 //= require bootstrap
+//= require tinymce
 
 

@@ -2,8 +2,7 @@
     <% if @banners!=nil %>
 	    <div class="container bk_banners">
 	    	<marquee onMouseOver="this.stop()" onMouseOut="this.start()">
-		    	<%= @banners.scroll if @banners!=nil %> 
-		    	<%= link_to('Click', @banners.url ) if @banners!=nil && @banners.url!=''  %>
+		    	<%= @banners.scroll.html_safe if @banners!=nil %> 
 	    	</marquee>
 	    </div>
     <% end %>

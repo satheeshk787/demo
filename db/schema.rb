@@ -59,12 +59,12 @@ ActiveRecord::Schema.define(version: 20190215093008) do
   end
 
   create_table "banners", force: :cascade do |t|
-    t.string   "scroll",     limit: 255
+    t.text     "scroll",     limit: 65535
     t.string   "url",        limit: 255
     t.integer  "role",       limit: 4
     t.integer  "status",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "hobbies", force: :cascade do |t|

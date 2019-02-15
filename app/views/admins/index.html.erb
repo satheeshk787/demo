@@ -1,0 +1,75 @@
+<h3>Welcome <b><i><%=current_user.name %>,</i></b></h3>
+
+<div class="row">
+
+	<div class="col-md-4 col-sd-12">
+		<div class="card ">
+		  <div class="card-header bg-primary text-white"> Total number of users</div>
+		  <div class="card-body">
+		  	
+		  	<table class="table">
+		  		<tr>
+		  			<th>Roles</th>
+		  			<th>Number of users</th>
+		  		</tr>
+	 			<% @uaser_group.each do |groups| %>
+	 				<tr>
+			  			<td><%= groups.role %></td>
+			  			<td><%= groups.number %></td>
+			  		</tr>
+			      
+			    <% end  %>
+			</table>
+
+		  </div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sd-12">
+		<div class="card ">
+		  <div class="card-header bg-primary text-white">Total Number of assignments</div>
+		  <div class="card-body">
+
+		      <h1 style="text-align: center"><%= @total_number_assignment %></h1>
+
+		  </div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sd-12">
+		<div class="card ">
+		  <div class="card-header bg-primary text-white">Completed Assignments</div>
+		  <div class="card-body">
+
+		      <p>Assignment submitted = <%=@total_number_of_assignment_attented_p.to_s + "%"  %></p>
+		      <p>Assignment not submitted = <%=@total_number_of_assignment_not_attented_p.to_s + "%"  %></p>
+
+		  </div>
+		</div>
+	</div>
+
+
+</div>
+<br>
+<div class="card ">
+  <div class="card-header bg-primary text-white">Highest shred assignment</div>
+  <div class="card-body">
+
+
+      <p>
+        <strong>Assignment name:</strong>
+        <%= @max_share_assignment_data.assignment_name %>
+      </p>
+      
+      <p>
+        <strong>Description:</strong>
+        <%= @max_share_assignment_data.description %>
+      </p>
+      
+      <p>
+        <strong>Expiry date:</strong>
+         <%= @max_share_assignment_data.expiry_date.present? ? @max_share_assignment_data.expiry_date.strftime('%d-%m-%Y') : 'Null'%>
+      </p>
+
+
+
+  </div>
+</div>

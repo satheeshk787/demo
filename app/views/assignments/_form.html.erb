@@ -1,0 +1,110 @@
+<%= form_for(@assignment, html: { multipart: true }) do |f| %>
+  <% if @assignment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+
+      <ul>
+      <% @assignment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :assignment_name %><br>
+    <%= f.text_field :assignment_name,class:'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, class:'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :expiry_date %><br>
+    <%= f.date_field :expiry_date,class:'form-control' %>
+  </div>
+  
+
+
+<div class="card ">
+  <div class="card-header bg-primary text-white">Materials</div>
+  <div class="card-body">
+    
+    <div class="field">
+      <%= f.nested_fields_for :materials do |ff| %>
+      
+      <%= ff.label :title %>
+      <%= ff.text_field :title, placeholder:'title' %>
+
+      <%# ff.text_field :stuff %>
+
+      <%= ff.label :stuff %>
+      <%= ff.file_field :stuff %>
+
+
+
+      <%= ff.remove_nested_fields_link %>
+      
+      <% end %>
+
+
+      <%= f.add_nested_fields_link :materials %>
+
+
+    </div>
+
+  </div> 
+</div>
+
+<div class="card ">
+  <div class="card-header bg-primary text-white">Questions</div>
+  <div class="card-body">
+
+    <div class="field">
+      <%= f.nested_fields_for :questions do |ff| %>
+      
+          <%= ff.label :question %>
+          <%= ff.text_area :question, placeholder:'Question', class:'form-control' %><br>
+          <%= ff.select :choice_type, Question.choice_types.keys.map {|choice_type| [choice_type.titleize,choice_type]},{}, { :class => 'form-control' }  %><br>
+
+          <%= ff.nested_fields_for :question_answer_lists do |fff| %>
+             
+              <div class="input-group md-form form-sm form-2 pl-0">
+                <%= fff.text_field :answer, placeholder:'Answer', class:'form-control' %>
+                <div class="input-group-append">
+                  <input type="button" class="btn btn-danger" id="search_close" value="X">
+                  <%= fff.remove_nested_fields_link %>
+                </div>
+              </div>
+
+          <% end %>
+
+          <%= ff.add_nested_fields_link :question_answer_lists,'Add answer for the question' %>
+
+
+          <%= ff.remove_nested_fields_link %>
+      
+      <% end %>
+
+
+      <%= f.add_nested_fields_link :questions,"Add Question",class:'btn btn-primary text-white' %>
+
+
+    </div>
+
+  </div> 
+</div>
+
+
+
+
+
+<br>
+
+
+
+  <div class="actions">
+    <%= f.submit :class =>'btn btn-primary' %>
+  </div>
+<% end %>

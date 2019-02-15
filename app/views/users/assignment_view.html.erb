@@ -1,0 +1,28 @@
+<h1>Assignments List</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Assignment name</th>
+      <th>Total Score</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assignments.each do |assignment| %>
+      <tr>
+        <td><%= assignment.assignment_name %></td>
+        <% if assignment.score==nil %>
+          <td>Not reviewed</td>
+        <% else %>
+          <td><%= assignment.score %></td>
+        <% end %>
+        
+        <td><%= link_to 'View assignment', user_show_assignment_path(assignment) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

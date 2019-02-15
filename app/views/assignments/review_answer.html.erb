@@ -1,0 +1,48 @@
+<h3>Review Answer</h3>
+
+
+
+<div class="card ">
+  <div class="card-header bg-primary text-white">Answers from <%=params[:student_name] %> </div>
+  <div class="card-body">
+
+      
+     <form method="post" action="/assignments/review_answer_action">
+
+          <% @students_answers.each do |s| %>
+           
+          	<h4><%=s.question_text %></h4>
+          	<p><i>Ansers</i></p>
+          	<ul>
+          		<% get_ansers_list = Assignment.get_ansers_list(s.question_id) %>
+          		<% get_ansers_list.each do |anslist| %>
+          			<li><%=anslist.answer %></li>
+          		<% end %>
+          	</ul>
+
+
+          	<hr>
+          	<p><i>Ansers from student</i></p>
+      		<ul>
+          		<% get_ansers_list_data = Assignment.get_ansers_list_data(s.id) %>
+          		<% get_ansers_list_data.each do |students_answers_list| %>
+          			<li><%=students_answers_list.answer %></li>
+          		<% end %>
+      		</ul>
+      		
+
+      		<input type="number" placeholder="Enter the score" class="form-control" 
+      			name="answer_review[<%=s.id %>]" 
+      			value="<%=s.score %>" >
+
+      		<hr color='#007bff'>
+          <% end %>
+
+		<input type="submit" value="Submit Score" class="btn btn-primary">
+
+      </form>
+
+
+
+   </div>
+</div>

@@ -1,0 +1,60 @@
+<h3>Students result</h3>
+
+
+<!-- <div class="input-group md-form form-sm form-2 pl-0">
+  <input class="form-control my-0 py-1 amber-border" type="text" id="search" value="<%=params[:search] %>" placeholder="Search" aria-label="Search">
+  <div class="input-group-append">
+    <input type="button" class="btn btn-primary" id="search_submit" value="Search">
+    <input type="button" class="btn btn-danger" id="search_close" value="X">
+  </div>
+</div> -->
+
+<!-- <script type="text/javascript">
+	$("#search_submit").click(function(){
+	  window.location.href = "?search="+ $('#search').val();
+	});
+	$('#search').on("keypress", function(e) {
+        if (e.keyCode == 13) {
+            window.location.href = "?search="+ $('#search').val();
+        }
+	});
+	$("#search_close").click(function(){
+	  window.location.href = "?";
+	});
+</script> -->
+
+
+
+<table class="table">
+	<tr>
+
+		<th>Name</th>
+		<th>Email</th>
+		<th>Score</th>
+		<th></th>
+		
+	</tr>
+	<%# i=0 %>
+	<% @users.each do |user| %>
+
+	
+		<tr>
+			<td><%=user.name %></td>
+			<td><%=user.email %></td>
+			<% if user.score!=nil %>
+				<td><%=user.score %></td>
+			<% else %>
+				<td><%='Not valuated.' %></td>
+			<% end %>
+
+			<td><%= link_to 'Review Answers', review_answer_path(user.id,params[:id],user.name) %></td>
+		</tr>
+
+		<%# i+=1 %>
+	
+	<% end %>
+
+</table>
+
+
+

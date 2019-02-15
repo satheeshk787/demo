@@ -1,0 +1,17 @@
+<h1>Pages#home</h1>
+<p>Find me in app/views/pages/home.html.erb</p>
+
+<% if user_signed_in? %>
+
+  <li>
+  	 <%= link_to('View User', edit_user_password_path) %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
+
+
+
+<% current_user.to_json %>

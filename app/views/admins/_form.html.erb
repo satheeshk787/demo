@@ -1,0 +1,102 @@
+<%= form_for(@user, :url => admins_update_path,method: "post",  html: { multipart: true }) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+  <div class="field">
+    <%= f.label :avatar %><br>
+    <%= f.file_field :avatar %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dob %><br>
+    <%= f.date_field :dob %>
+  </div>
+
+
+
+  <% if current_user.role=='admin' || current_user.role=='professor' %>
+    <div class="field">
+      <%= f.label :university_id %><br />
+      <%= f.select :university_id,  University.all.collect {|p| [ p.name, p.id ] } + [['Other','0']], { include_blank: :true } %><br>
+      <input type="text" style="display: none;" name="user[other_university]" id="other_university" placeholder="Enter university name">
+    </div>
+  <% end %>
+
+  <script>
+
+  $("#user_university_id").change(function(){
+
+      if( $(this).val() == '0' )
+      {
+        $("#other_university").show(100);
+      }
+      else
+      {
+        $("#other_university").hide(100);
+      }
+      
+  });
+
+  </script>
+
+
+  <div class="field">
+    <%= f.nested_fields_for :qualifications do |ff| %>
+    
+    <%= ff.label :stream %>
+    <%= ff.text_field :stream, placeholder:'Stream' %>
+
+    <%= ff.label :subject %>
+    <%= ff.text_field :subject %>
+
+    <%= ff.label :completed %>
+    <%= ff.date_field :completed %>
+
+
+    <%= ff.remove_nested_fields_link %>
+    
+    <% end %>
+    <%= f.add_nested_fields_link :qualifications %>
+  </div>
+
+
+
+
+
+
+  <div class="field">
+    <%= f.nested_fields_for :hobbies do |ff| %>
+    <%= ff.label :hobby %><br>
+    <%= ff.text_field :hobby %>
+    <%= ff.remove_nested_fields_link %>
+    
+    <% end %>
+    <%= f.add_nested_fields_link :hobbies %>
+  </div>
+
+
+
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

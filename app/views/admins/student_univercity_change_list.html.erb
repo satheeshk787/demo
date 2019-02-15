@@ -1,0 +1,32 @@
+
+<h1>Univercity changed students</h1>
+<hr>
+<% if @users.count != 0 %>
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Univercity</th>
+		<th>Role</th>
+		<th>Review Univercity</th>
+		<th>Show</th>
+		<th>Edit</th>
+		
+	</tr>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%=user.name %></td>
+			<td><%=user.email %></td>
+			<td><%=user.university.name  %></td>
+			<td><%=user.role %></td>
+			
+			<td><%= link_to 'Review Univercity', admin_univercity_review_path(user), method: :get, data: { confirm: 'Are you sure to update?' }  %></td>
+			<td><%= link_to 'Show', admins_show_path(user) %></td>
+	        <td><%= link_to 'Edit', admins_edit_path(user) %></td>
+	       
+		</tr>
+	<% end %>	
+</table>
+<% else %>
+	No one changed their univercity.
+<% end %>

@@ -1,0 +1,43 @@
+
+<h1>Users</h1>
+<hr>
+
+<div>
+
+<%= form_tag('/admins/list_users', method: :get) do %>
+	<%= search_field_tag 'search',params[:search],:placeholder => 'Search by name and email' %>
+	<%= select_tag :role, options_for_select(User.roles,:selected => params[:role])  %>
+	<%= submit_tag 'Search' %>
+<% end %>
+
+	
+<!-- <form method="get" action="">
+	<input placeholder="Search by name and email" type="text" name="search">
+	<%= select_tag :role, options_for_select(User.roles)  %>
+
+	<input type="submit" value="Search">
+
+</form> -->
+	
+</div>
+
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Role</th>
+		<th>Show</th>
+		<th>Edit</th>
+		<th>Destroy</th>
+	</tr>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%=user.name %></td>
+			<td><%=user.email %></td>
+			<td><%=user.role %></td>
+			<td><%= link_to 'Show', admins_show_path(user) %></td>
+	        <td><%= link_to 'Edit', admins_edit_path(user) %></td>
+	        <td><%= link_to 'Destroy', admins_destroy_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		</tr>
+	<% end %>	
+</table>

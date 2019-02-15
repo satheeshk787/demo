@@ -1,0 +1,83 @@
+<div class="jumbotron">
+
+<% if user_signed_in? %>
+
+<h1>Welcome  <%= @user.name %></h1>
+
+
+
+
+<p>
+  <%= image_tag @user.avatar.url(:medium) %>
+</p>
+
+
+<% if @user.role=='admin' %>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+<% end %>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Date of birth:</strong>
+ 
+  <%= @user.dob.present? ? @user.dob.strftime('%d-%m-%Y') : 'Null'%>
+  
+</p>
+
+
+<h2>Qualifications</h2><hr>
+
+<table class="table">
+  <tr>
+    <th>Stream</th>
+    <th>Subject</th>
+    <th>Completed Date</th>
+  </tr>
+
+ 
+    <% @qualifications.each do |qualification| %>
+    <tr>   
+      <td><%= qualification.stream %></td>
+      <td><%= qualification.subject %></td>
+      <td>
+
+        <!--  <% unless qualification.completed.nil? %>
+            <% qualification.completed.strftime('%d-%m-%Y') %>
+        <% end %>  -->
+
+        <%= qualification.completed.present? ? qualification.completed.strftime('%d-%m-%Y') : 'Null' %>
+          
+      </td>
+
+    </tr>
+    <% end %>
+
+</table>
+
+<h2>Hobbyies</h2><hr>
+
+ <ol>
+    <% @user.hobbies.each do |h| %>
+      <li><%= h.hobby %></li>
+    <% end %>
+</ol>
+
+
+
+
+
+<% else %>
+  <li>
+    <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
+
+
+</div>

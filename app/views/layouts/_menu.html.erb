@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">My Project</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample06">
+        <ul class="navbar-nav mr-auto">
+          
+
+
+		    <li class="nav-item">     
+				<%= link_to('Home', users_profile_path,:class => "nav-link" ) %>
+			</li>
+			<% if current_user.role=='admin' || current_user.role=='professor' %>
+				 <li class="nav-item">     
+				<%= link_to('Universities', universities_path,:class => "nav-link")  %>
+				</li>
+			<% end %>
+
+			<% if current_user.role=='admin' %>
+			 <li class="nav-item">     
+				<%= link_to('View All Users', users_list_path,:class => "nav-link")  %>
+			</li>
+			 <li class="nav-item">     
+				<%= link_to('University changed students', student_univercity_change_list_path,:class => "nav-link")  %>
+			</li>
+			<% end %>
+
+			
+			<% if current_user.role=='professor' %>
+			 <li class="nav-item">     
+				<%= link_to('Assignments', assignments_path,:class => "nav-link")  %>
+			</li>
+			<% end %>
+
+			<% if current_user.role=='student' %>
+			 <li class="nav-item">     
+				<%= link_to('Assignments', user_assignment_view_path,:class => "nav-link")  %>
+			</li>
+			<% end %>
+
+	
+			 <li class="nav-item">     
+				<%= link_to('Edit Profile', users_edit_path,:class => "nav-link") %>
+			</li>
+			 <li class="nav-item">     
+				<%= link_to('Edit Password', change_password_path,:class => "nav-link") %>
+			</li>
+			 <li class="nav-item">     
+				<%= link_to('Logout', destroy_user_session_path, method: :delete,:class => "nav-link") %> 
+			</li>
+         
+
+
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown06">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li> -->
+
+
+        </ul>
+        <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="text" value="<%=current_user.role %>" readonly placeholder="Search">
+
+        </form>
+      </div>
+    </nav>

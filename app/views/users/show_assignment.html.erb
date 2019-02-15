@@ -1,0 +1,185 @@
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close close-d" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-danger close-d" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="card ">
+  <div class="card-header bg-primary text-white">Assignment Details</div>
+  <div class="card-body">
+
+      <p>
+        <strong>Assignment name:</strong>
+        <%= @assignment.assignment_name %>
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        <%= @assignment.description %>
+      </p>
+      <p>
+        <strong>Expiry date:</strong>
+         <%= @assignment.expiry_date.present? ? @assignment.expiry_date.strftime('%d-%m-%Y') : 'Null'%>
+      </p>
+
+  </div>
+</div>
+
+
+<br>
+
+<div class="card ">
+  <div class="card-header bg-primary text-white">Study materials</div>
+  <div class="card-body">
+
+
+     <ol>
+        <% @assignment.materials.each do |m| %>
+         
+          <li>
+            
+             <a class="show" title='<%= m.title %>' download='<%= m.stuff %>' type='<%= m.stuff_content_type %>' href="#" data-toggle="modal" data-target="#myModal" > <%= m.title %> </a> <br>
+           
+          </li>
+
+        <% end %>
+    </ol>
+  </div>
+</div>
+
+<br>
+
+
+<% if @assignment.questions.count!=0 %>
+  <div class="card ">
+    <div class="card-header bg-primary text-white">Questions</div>
+    <div class="card-body">
+
+
+        <form method="post" action="/users/submit_answer" >
+          <%= csrf_meta_tags %>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          
+          <%= @assignment.questions.count %>
+
+          <ol>
+              <% @assignment.questions.each do |q| %>
+               
+                  <li>
+                    <input type="hidden" name="question_id" value="<%= q.id %>"> 
+                    <%= q.question %> 
+                  </li>
+                    
+                    <ul>
+
+                      <% 
+                          get_question = StudentsAnswer.get_question(current_user.id,q.id) 
+
+                          if get_question != nil
+                            get_answerlist = StudentsAnswer.get_answerlist(get_question.id)
+                          end
+                      %>
+
+                      <% if q.choice_type=='checkbox' || q.choice_type=='radio' %>
+                      
+
+                       <% q.question_answer_lists.each do |a| %>
+                       <% 
+                          if get_question!= nil
+                            current_answer = get_answerlist.map(&:answer).include? a.answer 
+                          else
+                            current_answer = nil
+                          end
+                        %>
+
+                           <li> 
+                                <label><input type="<%= q.choice_type %>" name="answers[<%= q.choice_type %>][<%= q.id %>][]" value="<%= a.answer %>" <%='checked' if current_answer %>> 
+                                <%= a.answer %> </label>
+                            </li>
+
+                       <% end %>
+
+
+                       <% else %>
+                          <input type="text" name="answers[text][<%= q.id %>][]" value="<%=get_answerlist.first.answer if get_question!= nil %>" >
+                       <% end %>
+                    </ul>
+     
+
+              <% end %>
+
+          </ol>
+
+          <input type="submit" class="btn btn-primary">
+
+        </form>
+        
+
+     </div>
+  </div>
+
+<% end %>
+
+
+
+
+
+
+<script type="text/javascript">
+  
+  $(".show").click(function(){
+
+
+      $(".modal-title").html(this.title);
+      
+      if(this.type == 'image/png' || this.type == 'image/jpg' || this.type == 'image/jpeg')
+      {
+         $(".modal-body").html("<img style='width:100%;' src='"+this.download+"' >");
+      }
+      else if(this.type == 'application/pdf')
+      {
+          $(".modal-body").html("<iframe src='"+this.download+"' style='width:100%;height:-webkit-fill-available' ></iframe>");
+      }
+      else if(this.type == 'video/mp4')
+      {
+          $(".modal-body").html("<video style='width:100%;' controls><source src='"+this.download+"' type='video/mp4' style='width:100%;'> Your browser does not support the video tag.</video>");
+      }
+      else
+      {
+          $(".modal-body").html("We cannot recognize your file<br><a href='"+this.download+"' >Download File</a>");
+      }
+
+
+
+  });
+  $(".close-d").click(function(){
+
+    $(".modal-body").html("");
+    $(".modal-title").html("");
+  
+  });
+</script>
+
+
+

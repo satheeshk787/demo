@@ -1,0 +1,89 @@
+<%= form_for(@user, :action => 'users/update',  html: { multipart: true }) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+  <div class="field">
+    <%= f.label :avatar %><br>
+    <%= f.file_field :avatar %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :dob %><br>
+    <%= f.date_field :dob %>
+  </div>
+
+
+  <% if current_user.role=='student' %>
+    <% if @user.review_status==1 %>
+      <div class="field">
+        <%= f.label :university_id %><br />
+        You are under review.
+      </div>
+    <% else %>
+      <div class="field">
+        <input type="hidden" value="<%= @user.university_id %>" name="user[university_id_before_edit]" id="university_id_before_edit">
+        <%= f.label :university_id %><br />
+        <%= f.select :university_id,  University.all.collect {|p| [ p.name, p.id ] }, { include_blank: :true } %><br>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="field">
+    <%= f.nested_fields_for :qualifications do |ff| %>
+    
+    <%= ff.label :stream %>
+    <%= ff.text_field :stream, placeholder:'Stream' %>
+
+    <%= ff.label :subject %>
+    <%= ff.text_field :subject %>
+
+    <%= ff.label :completed %>
+    <%= ff.date_field :completed %>
+
+
+    <%= ff.remove_nested_fields_link %>
+    
+    <% end %>
+    <%= f.add_nested_fields_link :qualifications %>
+  </div>
+
+
+
+
+
+
+  <div class="field">
+    <%= f.nested_fields_for :hobbies do |ff| %>
+    <%= ff.label :hobby %><br>
+    <%= ff.text_field :hobby %>
+    <%= ff.remove_nested_fields_link %>
+    
+    <% end %>
+    <%= f.add_nested_fields_link :hobbies %>
+  </div>
+
+
+
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

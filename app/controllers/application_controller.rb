@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   	users_profile_path
   end
 
+
   
 
 end

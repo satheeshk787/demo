@@ -1,0 +1,7 @@
+    <% @banners = Banner.where(role: current_user.role).first %>
+    <div class="container">
+    	<marquee>
+	    	<%= @banners.scroll if @banners!=nil %> 
+	    	<%= link_to('Click', @banners.url ) if @banners!=nil && @banners.url!=''  %>
+    	</marquee>
+    </div>

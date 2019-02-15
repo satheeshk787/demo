@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scroll: MyString
+  url: MyString
+  role: 1
+  status: 1
+
+two:
+  scroll: MyString
+  url: MyString
+  role: 1
+  status: 1

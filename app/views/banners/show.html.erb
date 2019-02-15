@@ -1,0 +1,24 @@
+
+
+<p>
+  <strong>Scroll:</strong>
+  <%= @banner.scroll %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @banner.url %>
+</p>
+
+<p>
+  <strong>Visible for:</strong>
+  <%= @banner.role %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @banner.status %>
+</p>
+
+<%= link_to 'Edit', edit_banner_path(@banner) %> |
+<%= link_to 'Back', banners_path %>

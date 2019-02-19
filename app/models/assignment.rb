@@ -30,5 +30,7 @@ class Assignment < ActiveRecord::Base
 		get_ansers_list_data = AnswerList.where(students_answer_id: students_answer_id)
 	end
 
+	
+
 end
 

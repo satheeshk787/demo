@@ -4,4 +4,5 @@ module ApplicationHelper
   	 	Banner.where(role: Banner.roles[current_user.role]).first
   	end
 
+
 end

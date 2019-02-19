@@ -1,0 +1,48 @@
+<%= form_for(@api_authentication)  do |f| %>
+  <% if @api_authentication.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@api_authentication.errors.count, "error") %> prohibited this api_authentication from being saved:</h2>
+
+      <ul>
+      <% @api_authentication.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :key %><br>
+    <%= f.text_field :key, id:'key' %>
+    <input type="button" value="Generate Code" id="btnCodeGenerate" >
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+<script>
+
+
+
+$("#btnCodeGenerate").click(function(){
+  var code = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+  for (var i = 0; i < 10; i++)
+  {
+    code += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  $("#key").val(code);
+});
+
+
+
+</script>

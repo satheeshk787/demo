@@ -15,7 +15,7 @@
   <tbody>
     <% @banners.each do |banner| %>
       <tr>
-        <td><%= banner.scroll %></td>
+        <td><%= banner.scroll.html_safe %></td>
         <td><%= banner.url %></td>
         <td><%= banner.role %></td>
         <td><%= banner.status %></td>

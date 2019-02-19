@@ -8,6 +8,16 @@ class AssignmentsController < ApplicationController
     @assignments = Assignment.where(user_id: current_user.id)
   end
 
+  def assignment_api
+    api_authentication = ApiAuthentication.where(key: params[:key])
+    if(api_authentication.length!=0)
+      @assignments = Assignment.where(status: 1).includes(:materials,:questions)
+    else
+      redirect_to users_profile_path, notice: 'Invalid Key'
+    end
+  end
+
+
   # GET /assignments/1
   # GET /assignments/1.json
   def show

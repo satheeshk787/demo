@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :api_authentications
+  resources :banners
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :assignments
@@ -7,6 +9,10 @@ Rails.application.routes.draw do
   get 'admins/list_users'
 
   root to: "pages#home"
+
+
+  get 'assignment_api' => 'assignments#assignment_api', as: :assignment_api
+
 
   get 'users/edit' => 'users#edit', as: :users_edit
   get 'users/my_profile' => 'users#view', as: :users_profile
@@ -21,6 +27,8 @@ Rails.application.routes.draw do
   get 'users/assignment_view' => 'users#assignment_view', as: :user_assignment_view
   get 'users/assignment_view/:id' => 'users#show_assignment', as: :user_show_assignment
 
+
+
   get 'assignments/:id/share' => 'assignments#share', as: :assignment_share
   get 'assignments/:id/share?search=:search' => 'assignments#share'
   post 'assignments/:id/share_action' => 'assignments#share_action', as: :assignment_share_action
@@ -30,6 +38,8 @@ Rails.application.routes.draw do
 
   post 'assignments/review_answer_action' => 'assignments#review_answer_action', as: :review_answer_action
   
+
+
 
   devise_for :users
 

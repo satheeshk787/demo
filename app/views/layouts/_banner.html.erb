@@ -1,0 +1,8 @@
+    <% @banners = get_banners %>
+    <% if @banners!=nil %>
+	    <div class="container bk_banners">
+	    	<marquee onMouseOver="this.stop()" onMouseOut="this.start()">
+		    	<%= @banners.scroll.html_safe if @banners!=nil %> 
+	    	</marquee>
+	    </div>
+    <% end %>

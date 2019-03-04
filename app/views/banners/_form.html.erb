@@ -1,0 +1,34 @@
+<%= tinymce_assets %>
+
+
+<%= form_for(@banner) do |f| %>
+
+
+  <div class="field">
+    <%= f.label :scroll %><br>
+    <%= f.text_area :scroll, :class => "tinymce", :rows => 5, :cols => 120 %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+
+   
+  <div class="field">
+    <%= 'Visible for' %><br />
+    <%= f.select :role, Banner.roles.keys.map {|role| [role.titleize,role]}  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.select :status, Banner.statuses.keys.map {|status| [status.titleize,status]}  %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= tinymce %>

@@ -1,0 +1,32 @@
+
+<h1>Listing Banners</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Scroll</th>
+      <th>Url</th>
+      <th>Visible For</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @banners.each do |banner| %>
+      <tr>
+        <td><%= banner.scroll.html_safe %></td>
+        <td><%= banner.url %></td>
+        <td><%= banner.role %></td>
+        <td><%= banner.status %></td>
+        <td><%= link_to 'Show', banner %></td>
+        <td><%= link_to 'Edit', edit_banner_path(banner) %></td>
+        <td><%= link_to 'Destroy', banner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Banner', new_banner_path %>

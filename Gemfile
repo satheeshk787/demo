@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 #admin
 gem 'activeadmin'
 
+#for text editor
+gem 'tinymce-rails'
+
 #paper clip image
 gem "paperclip", "~> 6.0.0"
 
